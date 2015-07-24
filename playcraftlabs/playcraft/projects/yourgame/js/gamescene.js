@@ -17,6 +17,7 @@ GameScene = pc.Scene.extend('GameScene',
             //-----------------------------------------------------------------------------
             // game layer
             //-----------------------------------------------------------------------------
+                           //this refers to the GameScene
             this.gameLayer = this.addLayer(new pc.EntityLayer('game layer', 10000, 10000));
 
             // all we need is the render and effects systems
