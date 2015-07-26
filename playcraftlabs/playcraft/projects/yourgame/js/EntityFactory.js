@@ -15,11 +15,16 @@ this.playerSheet.addAnimation({name: 'walking right', frameCount:8, time:1000});
             case 'player': 
                 e=pc.Entity.create(layer);
                 e.addTag('PLAYER');
+                e.addComponent(pc.components.Sprite.create(
+                        {
+                            spriteSheet:this.playerSheet,
+                            animationStart:'walking right'
+                        }));
                 e.addComponent(pc.components.Spatial.create({x:x, y:y, dir:0, w:this.playerSheet.frameWidth, h:this.playerSheet.frameHeight}));
                 return e;
                 
-            throw "Unknown entity type: " + type;
         }
+        throw "Unknown entity type: " + type;
         }
     });
     

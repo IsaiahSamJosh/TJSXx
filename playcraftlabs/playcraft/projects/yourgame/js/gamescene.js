@@ -10,7 +10,7 @@ GameScene = pc.Scene.extend('GameScene',
         backgroundLayer:null,
         entityFactory:null,
         levelToStand:null,
-
+        playerSpatial:null,
         init:function ()
         {
             this._super();
@@ -23,6 +23,7 @@ GameScene = pc.Scene.extend('GameScene',
             this.backgroundLayer=this.get('Background');
             this.backgroundLayer.setZIndex(9);
             this.playerLayer=this.gameLayer.entityManager.getTagged('PLAYER').first.object();
+            this.playerSpatial = this.playerLayer.getComponent('spatial');
               this.gameLayer.addSystem(new pc.systems.Render());
             // this.boxes = [];
 
