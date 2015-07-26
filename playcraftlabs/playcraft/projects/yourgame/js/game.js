@@ -21,8 +21,10 @@ TheGame = pc.Game.extend('TheGame',
 
             //if (pc.device.soundEnabled)
             //   pc.device.loader.add(new pc.Sound('fire', 'sounds/fire', ['ogg', 'mp3'], 15));
-
-            // fire up the loader
+           
+           pc.device.loader.add(new pc.Image('player', 'images/playersprite.png'));
+           pc.device.loader.add(new pc.DataResource('ExampleLevel', 'data/ExampleLevel.tmx'))
+           pc.device.loader.add(new pc.Image('Tiles', 'images/dg_dungeon32.png'));
             pc.device.loader.start(this.onLoading.bind(this), this.onLoaded.bind(this));
         },
 

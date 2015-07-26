@@ -6,12 +6,22 @@ GameScene = pc.Scene.extend('GameScene',
     { },
     {
         gameLayer:null,
-        boxes:null,
+        playerLayer:null,
+        backgroundLayer:null,
+        entityFactory:null,
+        levelToStand:null,
 
         init:function ()
         {
             this._super();
-
+            this.entityFactory= new EntityFactory();
+            this.levelToStand=this.get('Tile Layer 1');
+            this.loadFromTMX(pc.device.loader.get('ExampleLevel').resource, this.entityFactory);
+            this.gameLayer=this.get('player');
+            this.gameLayer.setZIndex(2);
+            this.backgroundLayer=this.get('Background');
+            this.backgroundLayer.setZIndex(1);
+            this.playerLayer=this.gameLayer.entityManager.getTagged('PLAYER').first.object();
             // this.boxes = [];
 
             //-----------------------------------------------------------------------------
@@ -37,10 +47,10 @@ GameScene = pc.Scene.extend('GameScene',
             }*/
 
             // bind some keys/clicks/touches to access the menu
-            pc.device.input.bindAction(this, 'menu', 'ENTER');
-            pc.device.input.bindAction(this, 'menu', 'ESC');
-            pc.device.input.bindAction(this, 'menu', 'MOUSE_BUTTON_LEFT_DOWN');
-            pc.device.input.bindAction(this, 'menu', 'TOUCH');
+            //pc.device.input.bindAction(this, 'menu', 'ENTER');
+            //pc.device.input.bindAction(this, 'menu', 'ESC');
+            //pc.device.input.bindAction(this, 'menu', 'MOUSE_BUTTON_LEFT_DOWN');
+            //pc.device.input.bindAction(this, 'menu', 'TOUCH');
 
         },
 
