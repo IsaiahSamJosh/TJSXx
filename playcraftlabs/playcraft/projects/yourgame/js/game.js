@@ -24,7 +24,7 @@ TheGame = pc.Game.extend('TheGame',
            
            pc.device.loader.add(new pc.Image('player', 'images/playersprite.png'));
            pc.device.loader.add(new pc.DataResource('ExampleLevel', 'data/ExampleLevel.tmx'))
-           pc.device.loader.add(new pc.Image('Tiles', 'images/dg_dungeon32.png'));
+           pc.device.loader.add(new pc.Image('tiles', 'images/dg_dungeon32.gif'));
             pc.device.loader.start(this.onLoading.bind(this), this.onLoaded.bind(this));
         },
 
