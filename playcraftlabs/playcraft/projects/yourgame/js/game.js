@@ -21,9 +21,9 @@ TheGame = pc.Game.extend('TheGame',
 
             //if (pc.device.soundEnabled)
             //   pc.device.loader.add(new pc.Sound('fire', 'sounds/fire', ['ogg', 'mp3'], 15));
-           
+
            pc.device.loader.add(new pc.Image('player', 'images/playersprite.png'));
-           pc.device.loader.add(new pc.DataResource('ExampleLevel', 'data/ExampleLevel.tmx'))
+           pc.device.loader.add(new pc.DataResource('firstlevel', 'data/firstlevel.tmx'))
            pc.device.loader.add(new pc.Image('dg_dungeon32', 'images/dg_dungeon32.gif'));
             pc.device.loader.start(this.onLoading.bind(this), this.onLoaded.bind(this));
         },
@@ -60,5 +60,3 @@ TheGame = pc.Game.extend('TheGame',
             this.activateScene(this.gameScene);
         }
     });
-
-

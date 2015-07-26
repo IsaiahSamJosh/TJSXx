@@ -127,8 +127,6 @@ pc.Loader = pc.Base.extend('pc.Loader',
         {
             // resource.src already has the baseUrl set by the resource class (i.e. pc.Image)
             // so no need to add it here
-            console.log(resource);
-            console.log(resource.name);
             resource.name = resource.name.toLowerCase();
             this.resources.put(resource.name.toLowerCase(), { resource:resource, state:this.State.QUEUED });
             this.info('Adding resource ' + resource.src + ' to the queue.');
@@ -226,7 +224,7 @@ pc.Loader = pc.Base.extend('pc.Loader',
         },
 
         /**
-        * Andrew: 
+        * Andrew:
         *    fixed minor bug where if you used uppercase characters in key name res would return null
         *    because it did not fins the key in the hashtable. Just displayed and error notice to console.
         */
@@ -235,7 +233,7 @@ pc.Loader = pc.Base.extend('pc.Loader',
             var res = this.resources.get(resource.name);
             if (res == null) {
                 this.error('Unable to get resource ['+resource.name+'] - Please make sure you are using all lowercase.');
-            } else { 
+            } else {
                 res.state = this.State.READY;
                 this.progress++;
 
@@ -275,6 +273,3 @@ pc.Loader = pc.Base.extend('pc.Loader',
         }
 
     });
-
-
-

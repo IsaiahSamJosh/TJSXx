@@ -7,24 +7,25 @@ GameScene = pc.Scene.extend('GameScene',
     {
         gameLayer:null,
         playerLayer:null,
-        backgroundLayer:null,
+        bgLayer:null,
         entityFactory:null,
-        levelToStand:null,
-        playerSpatial:null,
+        tileLayer:null,
+
         init:function ()
         {
             this._super();
             this.entityFactory= new EntityFactory();
-            this.loadFromTMX(pc.device.loader.get('ExampleLevel').resource, this.entityFactory);
-            this.backgroundLayer=this.get('Background');
-            this.backgroundLayer.setZIndex(1);
-            this.levelToStand=this.get('Tiledwhat');
-            this.levelToStand.setZIndex(5);
-            this.gameLayer=this.get('entity');
-            this.gameLayer.setZIndex(10);
+            this.loadFromTMX(pc.device.loader.get('firstlevel').resource, this.entityFactory);
+            this.dbgLayer = this.get('DistantBackground');
+            this.dbgLayer.setZIndex(1);
+            this.tileLayer=this.get('Tiles');
+            this.tileLayer.setZIndex(10);
+            this.gameLayer=this.get('hero');
+            this.bgLayer=this.get('Background');
+            this.bgLayer.setZIndex(5);
             this.playerLayer=this.gameLayer.entityManager.getTagged('PLAYER').first.object();
-            this.playerSpatial = this.playerLayer.getComponent('spatial');
-              this.gameLayer.addSystem(new pc.systems.Render());
+            this.gameLayer.addSystem(new pc.systems.Render());
+            this.gameLayer.setZIndex(100);
             // this.boxes = [];
 
             //-----------------------------------------------------------------------------
