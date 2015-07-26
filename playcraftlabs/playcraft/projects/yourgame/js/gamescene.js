@@ -16,12 +16,12 @@ GameScene = pc.Scene.extend('GameScene',
             this._super();
             this.entityFactory= new EntityFactory();
             this.loadFromTMX(pc.device.loader.get('ExampleLevel').resource, this.entityFactory);
-            this.levelToStand=this.get('Tiledwhat');
-            this.levelToStand.setZIndex(1);
-            this.gameLayer=this.get('entity');
-            this.gameLayer.setZIndex(5);
             this.backgroundLayer=this.get('Background');
-            this.backgroundLayer.setZIndex(9);
+            this.backgroundLayer.setZIndex(1);
+            this.levelToStand=this.get('Tiledwhat');
+            this.levelToStand.setZIndex(5);
+            this.gameLayer=this.get('entity');
+            this.gameLayer.setZIndex(10);
             this.playerLayer=this.gameLayer.entityManager.getTagged('PLAYER').first.object();
             this.playerSpatial = this.playerLayer.getComponent('spatial');
               this.gameLayer.addSystem(new pc.systems.Render());
