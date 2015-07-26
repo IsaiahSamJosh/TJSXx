@@ -13,7 +13,6 @@ this.playerSheet.addAnimation({name: 'walking right', frameCount:8, time:1000});
         var e;
         switch(type){
             case 'player': 
-                console.log("Here");
                 e=pc.Entity.create(layer);
                 e.addTag('PLAYER');
                 e.addComponent(pc.components.Spatial.create({x:x, y:y, dir:0, w:this.playerSheet.frameWidth, h:this.playerSheet.frameHeight}));

@@ -17,11 +17,13 @@ GameScene = pc.Scene.extend('GameScene',
             this.entityFactory= new EntityFactory();
             this.levelToStand=this.get('Tile Layer 1');
             this.loadFromTMX(pc.device.loader.get('ExampleLevel').resource, this.entityFactory);
-            this.gameLayer=this.get('player');
+            this.gameLayer=this.get('entity');
             this.gameLayer.setZIndex(2);
             this.backgroundLayer=this.get('Background');
             this.backgroundLayer.setZIndex(1);
             this.playerLayer=this.gameLayer.entityManager.getTagged('PLAYER').first.object();
+              console.log(this.playerLayer);
+              this.gameLayer.addSystem(new pc.systems.Render());
             // this.boxes = [];
 
             //-----------------------------------------------------------------------------
