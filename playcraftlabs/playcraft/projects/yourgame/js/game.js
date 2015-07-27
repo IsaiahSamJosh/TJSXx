@@ -7,6 +7,8 @@ TheGame = pc.Game.extend('TheGame',
     {
         gameScene:null,
         menuScene:null,
+        loadingScene:null,
+        loadingLayer:null,
 
         onReady:function ()
         {
@@ -25,12 +27,22 @@ TheGame = pc.Game.extend('TheGame',
            pc.device.loader.add(new pc.Image('player', 'images/playersprite.png'));
            pc.device.loader.add(new pc.DataResource('firstlevel', 'data/firstlevel.tmx'))
            pc.device.loader.add(new pc.Image('dg_dungeon32', 'images/dg_dungeon32.gif'));
+           this.loadingScene = new pc.Scene();
+            this.loadingLayer = new pc.Layer('loading');
+            this.loadingScene.addLayer(this.loadingLayer);
             pc.device.loader.start(this.onLoading.bind(this), this.onLoaded.bind(this));
         },
 
         onLoading:function (percentageComplete)
         {
-            // draw title screen -- with loading bar
+            var ctx = pc.device.ctx;
+            ctx.clearRect(0,0,pc.device.canvasWidth, pc.device.canvasHeight);
+            ctx.font = "normal 50px Times";
+            ctx.fillStyle = "#bbb";
+            ctx.fillText('TJSXx Game', 40, (pc.device.canvasHeight / 2)-50);
+            ctx.font = "normal 14px Verdana";
+            ctx.fillStyle = "#777";
+            ctx.fillText('Loading: ' + percentageComplete + '%', 40, pc.device.canvasHeight/2);
         },
 
         onLoaded:function ()
@@ -45,7 +57,7 @@ TheGame = pc.Game.extend('TheGame',
 
             // resources are all ready, start the main game scene
             // (or a menu if you have one of those)
-            this.activateScene(this.gameScene);
+            this.activateScene(this.menuScene);
         },
 
         activateMenu:function()

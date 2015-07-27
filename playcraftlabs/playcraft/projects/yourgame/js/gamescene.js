@@ -52,7 +52,7 @@ GameScene = pc.Scene.extend('GameScene',
 
             // bind some keys/clicks/touches to access the menu
             //pc.device.input.bindAction(this, 'menu', 'ENTER');
-            //pc.device.input.bindAction(this, 'menu', 'ESC');
+            pc.device.input.bindAction(this, 'menu', 'ESC');
             //pc.device.input.bindAction(this, 'menu', 'MOUSE_BUTTON_LEFT_DOWN');
             //pc.device.input.bindAction(this, 'menu', 'TOUCH');
 

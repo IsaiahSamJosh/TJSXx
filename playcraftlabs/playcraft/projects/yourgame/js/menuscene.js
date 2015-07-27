@@ -22,23 +22,24 @@ MenuScene = pc.Scene.extend('MenuScene',
             this.menuLayer = this.addLayer(new pc.EntityLayer('menu layer', 10000, 10000));
 
             // render system to draw text etc
-            this.menuLayer.addSystem(new pc.systems.Render());
+            this.menuLayer.addSystem(new pc.systems.Render());//gives us sprite, overlay, rect, text, and spatial components
             // we use the scale effect to show which item is highlighted
-            this.menuLayer.addSystem(new pc.systems.Effects());
+            this.menuLayer.addSystem(new pc.systems.Effects());//gives us the scale and fade components
             // and the layout system to automatically arrange the menu items on the side of the screen
-            this.menuLayer.addSystem(new pc.systems.Layout());
+            this.menuLayer.addSystem(new pc.systems.Layout());//manages the layout of entities
 
             // handle input
-            this.menuLayer.addSystem(new pc.systems.Input());
+            this.menuLayer.addSystem(new pc.systems.Input());//gives us the input components
 
             // title
             var title = pc.Entity.create(this.menuLayer);
             title.addComponent(pc.components.Spatial.create({ w:200, h:50 }));
-            title.addComponent(pc.components.Layout.create({ vertical:'middle', horizontal:'left', margin:{ left:40, bottom:50 }}));
-            title.addComponent(pc.components.Text.create({ fontHeight:40, lineWidth:1, strokeColor:'#ffffff', color:'#222288', text:['Menu!'] }));
+            title.addComponent(pc.components.Layout.create({ vertical:'middle', horizontal:'center', margin:{ left:40, bottom:50 }}));
+            //vertical can be 'top', 'middle', 'bottom', horizontal can be 'left', 'center', 'right'
+            title.addComponent(pc.components.Text.create({ fontHeight:40, lineWidth:1, strokeColor:'#00FF00', color:'#222288', text:['TJSXx Game'] }));
 
             // menu
-            var menuItemText = ["Continue", "Menu Item 1", "Menu Item 2"];
+            var menuItemText = ["New Game", "Options", "How to Play"];
             this.menuItems = [];
 
             for (var i=0; i < menuItemText.length; i++)
@@ -49,10 +50,11 @@ MenuScene = pc.Scene.extend('MenuScene',
                 // by the layout system/component)
                 menuItem.addComponent(pc.components.Spatial.create({ w:200, h:40 }));
                 menuItem.addComponent(pc.components.Alpha.create({}));
-                menuItem.addComponent(pc.components.Layout.create({ vertical:'middle', horizontal:'left', margin:{left:50 }}));
+                menuItem.addComponent(pc.components.Layout.create({ vertical:'middle', horizontal:'center', margin:{left:50 }}));
                 menuItem.addComponent(pc.components.Text.create({ fontHeight:30, text: [menuItemText[i]] }));
 
                 var fader = pc.components.Fade.create({ fadeInTime:500, fadeOutTime:500, loops:0 });
+                //loops equal to 0 makes the effect infinite
                 menuItem.addComponent(fader);
                 fader.active = false;
 
@@ -60,18 +62,15 @@ MenuScene = pc.Scene.extend('MenuScene',
                 // chosen from the menu
                 pc.device.input.bindAction(this, 'execute', 'MOUSE_BUTTON_LEFT_DOWN', menuItem.getComponent('spatial'));
                 pc.device.input.bindAction(this, 'execute', 'TOUCH', menuItem.getComponent('spatial'));
-
+                pc.device.input.bindAction(this, 'execute', 'ENTER');
                 // add the menu item to our list
                 this.menuItems.push(menuItem);
             }
-
-            this.changeMenuSelection(0); // default select the first item
-
+         this.changeMenuSelection(0);
             // map the keyboard controls (but only if we're not touch based)
-            pc.device.input.bindAction(this, 'up', 'UP');
+            pc.device.input.bindAction(this, 'up', 'UP');//should go up and down on the whole menu, not one element
+            //that is why these bindActions are not in the for loop
             pc.device.input.bindAction(this, 'down', 'DOWN');
-            pc.device.input.bindAction(this, 'execute', 'ENTER');
-            pc.device.input.bindAction(this, 'escape', 'ESC');
         },
 
         changeMenuSelection: function(newSelection)
@@ -97,19 +96,11 @@ MenuScene = pc.Scene.extend('MenuScene',
 
                 switch (currentMenuItem.getComponent('text').text[0])
                 {
-                    case 'Menu Item 1':
-                        break;
-                    case 'Continue':
+                    case 'New Game':
                         pc.device.game.deactivateMenu();
                         break;
                 }
             }
-
-            if (actionName == 'escape')
-            {
-                pc.device.game.deactivateMenu();
-            }
-
             if (actionName == 'down' || actionName == 'up')
             {
                 var m = this.currentMenuSelection;
