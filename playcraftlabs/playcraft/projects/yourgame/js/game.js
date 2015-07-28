@@ -25,8 +25,8 @@ TheGame = pc.Game.extend('TheGame',
             //   pc.device.loader.add(new pc.Sound('fire', 'sounds/fire', ['ogg', 'mp3'], 15));
 
            pc.device.loader.add(new pc.Image('player', 'images/playersprite.png'));
-           pc.device.loader.add(new pc.DataResource('firstlevel', 'data/firstlevel.tmx'))
-           pc.device.loader.add(new pc.Image('dg_dungeon32', 'images/dg_dungeon32.gif'));
+           pc.device.loader.add(new pc.DataResource('Level1', 'data/Level1.tmx'))
+           pc.device.loader.add(new pc.Image('jits', 'images/jits.png'));
            this.loadingScene = new pc.Scene();
             this.loadingLayer = new pc.Layer('loading');
             this.loadingScene.addLayer(this.loadingLayer);

@@ -15,13 +15,13 @@ GameScene = pc.Scene.extend('GameScene',
         {
             this._super();
             this.entityFactory = new EntityFactory();
-            this.loadFromTMX(pc.device.loader.get('firstlevel').resource, this.entityFactory);
+            this.loadFromTMX(pc.device.loader.get('Level1').resource, this.entityFactory);
 
             // Layers
-            this.dbgLayer = this.get('DistantBackground');
-            this.tileLayer = this.get('Tiles');
+            this.dbgLayer = this.get('Background');
+            this.tileLayer = this.get('Ground');
             this.gameLayer = this.get('hero');
-            this.bgLayer = this.get('Background');
+            
 
             // Entities
             this.player = this.gameLayer.entityManager.getTagged('PLAYER').first.object();
@@ -29,7 +29,6 @@ GameScene = pc.Scene.extend('GameScene',
             // Z positions
             this.dbgLayer.setZIndex(1);
             this.tileLayer.setZIndex(10);
-            this.bgLayer.setZIndex(5);
             this.gameLayer.setZIndex(100);
 
             // Add systems
