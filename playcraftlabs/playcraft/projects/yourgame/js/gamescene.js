@@ -14,47 +14,45 @@ GameScene = pc.Scene.extend('GameScene',
         init:function ()
         {
             this._super();
-            this.entityFactory= new EntityFactory();
+            this.entityFactory = new EntityFactory();
             this.loadFromTMX(pc.device.loader.get('firstlevel').resource, this.entityFactory);
+
+            // Layers
             this.dbgLayer = this.get('DistantBackground');
+            this.tileLayer = this.get('Tiles');
+            this.gameLayer = this.get('hero');
+            this.bgLayer = this.get('Background');
+
+            // Entities
+            this.player = this.gameLayer.entityManager.getTagged('PLAYER').first.object();
+
+            // Z positions
             this.dbgLayer.setZIndex(1);
-            this.tileLayer=this.get('Tiles');
             this.tileLayer.setZIndex(10);
-            this.gameLayer=this.get('hero');
-            this.bgLayer=this.get('Background');
             this.bgLayer.setZIndex(5);
-            this.playerLayer=this.gameLayer.entityManager.getTagged('PLAYER').first.object();
-            this.gameLayer.addSystem(new pc.systems.Render());
             this.gameLayer.setZIndex(100);
-            // this.boxes = [];
 
-            //-----------------------------------------------------------------------------
-            // game layer
-            //-----------------------------------------------------------------------------
-                           //this refers to the GameScene
-            // this.gameLayer = this.addLayer(new pc.EntityLayer('game layer', 10000, 10000));
+            // Add systems
+            this.gameLayer.addSystem(new pc.systems.Render());
+            this.gameLayer.addSystem(new pc.systems.Physics({gravity: {x:0, y:1}}))
 
-            // all we need is the render and effects systems
-            // this.gameLayer.addSystem(new pc.systems.Render());
-            // this.gameLayer.addSystem(new pc.systems.Effects());
 
-            // this.mainChar = pc.Entity.create(this.gameLayer);
-            // this.mainChar.addComponent(pc.components.Spatial.create({x:200, y:200});
 
-            /*for (var i = 0; i < 3; i++)
-            {
-                var box = pc.Entity.create(this.gameLayer);
-                box.addComponent(pc.components.Spatial.create({ x:200 + (i * 100), y:200, w:75, h:75 }));
-                box.addComponent(pc.components.Rect.create({ color:[ pc.Math.rand(0, 255), pc.Math.rand(0, 255), pc.Math.rand(0, 255) ] }));
 
-                this.boxes.push(box);
-            }*/
 
-            // bind some keys/clicks/touches to access the menu
-            //pc.device.input.bindAction(this, 'menu', 'ENTER');
+
             pc.device.input.bindAction(this, 'menu', 'ESC');
-            //pc.device.input.bindAction(this, 'menu', 'MOUSE_BUTTON_LEFT_DOWN');
-            //pc.device.input.bindAction(this, 'menu', 'TOUCH');
+
+            // Adding player input controls
+            this.player.addComponent(pc.components.Input.create(
+                {
+                    target:this.player,   // probably not necessary, but just to be sure target is player
+                    states:[
+                        ['moving left', ['LEFT', 'a']],
+                        ['moving right', ['RIGHT', 'd']],
+                    ]
+                }));
+
 
         },
 
@@ -64,8 +62,11 @@ GameScene = pc.Scene.extend('GameScene',
             if (pc.device.game.menuScene.active)
                 return true;
 
-            if (actionName === 'menu')
+            if (actionName === 'menu') {
                 pc.device.game.activateMenu();
+            } else if (actionName === 'left') {
+                pc.device.game.moveLeft
+            }
 
             return false; // eat the event (so it wont pass through to the newly activated menuscene
         },

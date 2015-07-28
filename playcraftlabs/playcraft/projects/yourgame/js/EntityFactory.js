@@ -12,7 +12,7 @@ this.playerSheet.addAnimation({name: 'walking right', frameCount:8, time:1000});
         {
         var e;
         switch(type){
-            case 'player': 
+            case 'player':
                 e=pc.Entity.create(layer);
                 e.addTag('PLAYER');
                 e.addComponent(pc.components.Sprite.create(
@@ -21,10 +21,10 @@ this.playerSheet.addAnimation({name: 'walking right', frameCount:8, time:1000});
                             animationStart:'walking right'
                         }));
                 e.addComponent(pc.components.Spatial.create({x:x, y:y, dir:0, w:this.playerSheet.frameWidth, h:this.playerSheet.frameHeight}));
+                e.addComponent(pc.components.Physics.create({collisionGroup:1}));
                 return e;
-                
+
         }
         throw "Unknown entity type: " + type;
         }
     });
-    
