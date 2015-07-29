@@ -40,7 +40,7 @@ GameScene = pc.Scene.extend('GameScene',
             // Add systems
             this.gameLayer.addSystem(new pc.systems.Render());
             this.gameLayer.addSystem(new pc.systems.Physics({
-                gravity: {x:1, y:0},
+                gravity: {x:0, y:1},
                 tileCollisionMap:{
                     tileMap: this.tileLayer.tileMap,
                     collisionCategory: CollisionType.TILES,
