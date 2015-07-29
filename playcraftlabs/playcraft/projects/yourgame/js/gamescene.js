@@ -40,13 +40,14 @@ GameScene = pc.Scene.extend('GameScene',
             // Add systems
             this.gameLayer.addSystem(new pc.systems.Render());
             this.gameLayer.addSystem(new pc.systems.Physics({
-                gravity: {x:0, y:1},
+                gravity: {x:0, y:9.8},
                 tileCollisionMap:{
                     tileMap: this.tileLayer.tileMap,
                     collisionCategory: CollisionType.TILES,
                     collisionMask: CollisionType.PLAYER
                 }
             }));
+            this.gameLayer.addSystem(new PlayerControlSystem());
 
 
 
@@ -58,9 +59,9 @@ GameScene = pc.Scene.extend('GameScene',
                 {
                     target:this.player,   // probably not necessary, but just to be sure target is player
                     states:[
-                        ['moving left', ['LEFT', 'a']],
-                        ['moving right', ['RIGHT', 'd']],
-                    ]
+                        ['moving left', ['LEFT', 'MOUSE_BUTTON_LEFT_DOWN']],
+                        ['moving right', ['RIGHT']],
+                    ],
                 }));
 
 
