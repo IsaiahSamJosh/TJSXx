@@ -2,6 +2,12 @@
  * GameScene
  * A template game scene
  */
+
+ CollisionType = {
+     PLAYER: 0x00001,
+     TILES: 0x00002
+ };
+
 GameScene = pc.Scene.extend('GameScene',
     { },
     {
@@ -21,7 +27,7 @@ GameScene = pc.Scene.extend('GameScene',
             this.dbgLayer = this.get('Background');
             this.tileLayer = this.get('Ground');
             this.gameLayer = this.get('hero');
-            
+
 
             // Entities
             this.player = this.gameLayer.entityManager.getTagged('PLAYER').first.object();
@@ -33,9 +39,14 @@ GameScene = pc.Scene.extend('GameScene',
 
             // Add systems
             this.gameLayer.addSystem(new pc.systems.Render());
-            this.gameLayer.addSystem(new pc.systems.Physics({gravity: {x:0, y:1}}))
-
-
+            this.gameLayer.addSystem(new pc.systems.Physics({
+                gravity: {x:1, y:0},
+                tileCollisionMap:{
+                    tileMap: this.tileLayer.tileMap,
+                    collisionCategory: CollisionType.TILES,
+                    collisionMask: CollisionType.PLAYER
+                }
+            }));
 
 
 
@@ -63,8 +74,6 @@ GameScene = pc.Scene.extend('GameScene',
 
             if (actionName === 'menu') {
                 pc.device.game.activateMenu();
-            } else if (actionName === 'left') {
-                pc.device.game.moveLeft
             }
 
             return false; // eat the event (so it wont pass through to the newly activated menuscene
