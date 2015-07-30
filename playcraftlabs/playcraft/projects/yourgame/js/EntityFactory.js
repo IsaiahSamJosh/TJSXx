@@ -4,7 +4,7 @@ EntityFactory = pc.EntityFactory.extend('EntityFactory',
         playerSheet:null,
      init:function ()
         {
-this.playerSheet=new pc.SpriteSheet({image:pc.device.loader.get('player').resource, frameWidth:80, frameHeight:40,useRotation:false});
+this.playerSheet=new pc.SpriteSheet({image:pc.device.loader.get('player').resource, frameWidth:80, frameHeight:72,useRotation:false});
 this.playerSheet.addAnimation({name: 'walking right', frameCount:8, time:1000});
         },
 
